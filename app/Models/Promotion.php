@@ -12,6 +12,12 @@ class Promotion extends Model
 
     protected $fillable = ['code', 'start_date', 'end_date', 'amount', 'quota'];
 
+    // Cast dates as Carbon objects
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime'
+    ];
+
     /**
      * The Users that belong to the Promotion
      *
