@@ -18,6 +18,7 @@ return new class extends Migration
             $table->dateTime('end_date');
             $table->decimal('amount')->default(0.00);
             $table->integer('quota')->default(1);
+            $table->timestamps();
         });
     }
 

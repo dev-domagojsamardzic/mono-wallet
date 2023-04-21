@@ -15,6 +15,6 @@ class UsersTableSeeder extends Seeder
     public function run(): void
     {
         // Create 100 users with wallets
-        User::factory()->count(100)->has(Wallet::factory())->create();
+        User::factory()->count(200)->has(Wallet::factory())->create();
     }
 }
