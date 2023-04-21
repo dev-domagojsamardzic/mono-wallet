@@ -24,7 +24,7 @@ class PromotionsTableSeeder extends Seeder
                         // Limit results in range from 1 to $promotion->quota
                         $users = User::inRandomOrder()->limit(random_int(1, $promotion->quota))->pluck('id')->toArray();
                         // Attach users to promotion
-                        $promotion->users()->attach($users);
+                        $promotion->users()->attach($users, [ 'created_at' => now(), 'updated_at' => now() ]);
                     });
     }
 }

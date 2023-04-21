@@ -19,6 +19,6 @@ class Promotion extends Model
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'promotion_users')->withPivot('used_at');
+        return $this->belongsToMany(User::class, 'promotion_users');
     }
 }

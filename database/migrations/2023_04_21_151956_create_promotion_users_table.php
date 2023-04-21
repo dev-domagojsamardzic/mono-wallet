@@ -13,9 +13,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('promotion_users', function (Blueprint $table) {
+
             $table->bigInteger('promotion_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
-            $table->dateTime('used_at')->nullable();
+            // Leaving timestamps to be aware when a user used certain promo code
+            $table->timestamps();
 
             $table->unique(['promotion_id', 'user_id']);
             $table->foreign('promotion_id')->references('id')->on('promotions')->onDelete('cascade');
