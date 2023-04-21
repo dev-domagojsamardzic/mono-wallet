@@ -19,7 +19,7 @@ class PromotionRepository extends ModelRepository
     }
 
     /**
-     * Configure the Model
+     * Get Model collection (all)
      * ------------------------------
      * @return Collection
     */
@@ -27,6 +27,20 @@ class PromotionRepository extends ModelRepository
     public function getAll(): Collection
     {
         $promotions = Promotion::all();
+        return $promotions;
+    }
+
+    /**
+     * Get Model (single)
+     * ------------------------------
+     * @param string $id
+     *
+     * @return Promotion
+    */
+
+    public function find(string $id): Promotion
+    {
+        $promotions = Promotion::find($id);
         return $promotions;
     }
 }

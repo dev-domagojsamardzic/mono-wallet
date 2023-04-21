@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('backoffice')->group(function(){
+Route::prefix('backoffice')->group(function() {
+
     Route::get('promotion-codes', [ PromotionController::class, 'index' ]);
+    Route::get('promotion-codes/{id}', [ PromotionController::class, 'show']);
 });
