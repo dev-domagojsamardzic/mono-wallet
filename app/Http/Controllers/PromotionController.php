@@ -33,7 +33,10 @@ class PromotionController extends Controller
     {
         $promotions = $this->promotionRepository->getAll();
 
-        return PromotionResource::collection($promotions)->response()->setStatusCode(200);
+        return response()->json([
+            'success' => true,
+            'data' => PromotionResource::collection($promotions)
+        ]);
     }
 
     /**
