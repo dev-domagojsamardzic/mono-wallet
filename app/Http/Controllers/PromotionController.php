@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PromotionShowRequest;
+use App\Http\Requests\PromotionGetRequest;
 use App\Http\Resources\PromotionResource;
-use App\Models\Promotion;
 use App\Repositories\PromotionRepository;
 use Illuminate\Http\Request;
 
@@ -53,13 +52,15 @@ class PromotionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json([
+            'function' => 'store'
+        ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show( PromotionShowRequest $request, string $id )
+    public function show( PromotionGetRequest $request, string $id )
     {
         $promotion = $this->promotionRepository->find($id);
 
