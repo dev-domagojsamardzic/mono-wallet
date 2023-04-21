@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PromotionGetRequest;
+use App\Http\Requests\PromotionPostRequest;
 use App\Http\Resources\PromotionResource;
 use App\Repositories\PromotionRepository;
 use Illuminate\Http\Request;
@@ -50,7 +51,7 @@ class PromotionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PromotionPostRequest $request)
     {
         return response()->json([
             'function' => 'store'
