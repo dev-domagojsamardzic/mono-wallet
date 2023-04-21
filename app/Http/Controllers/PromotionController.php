@@ -2,17 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PromotionResource;
+use App\Models\Promotion;
+use App\Repositories\PromotionRepository;
 use Illuminate\Http\Request;
 
 class PromotionController extends Controller
 {
 
     /**
+     * Promotion repository instance.
+     *
+     * @var App\Repositories\PromotionRepository
+     */
+
+    private PromotionRepository $promotionRepository;
+
+    /**
+     * Create a new controller instance.
+     */
+    public function __construct(PromotionRepository $promotionRepository) {
+
+        $this->promotionRepository = $promotionRepository;
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $promotions = $this->promotionRepository->getAll();
 
+        return PromotionResource::collection($promotions)->response()->setStatusCode(200);
     }
 
     /**
