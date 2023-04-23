@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('firstname')->nullable();
             $table->string('lastname')->nullable();
             $table->string('email')->nullable();
+            $table->string('api_token')->nullable();
             $table->timestamps();
         });
     }
