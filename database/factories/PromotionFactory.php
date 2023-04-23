@@ -27,7 +27,6 @@ class PromotionFactory extends Factory
     public function definition(): array
     {
         return [
-            'code' => strtoupper(Str::random(12)),
             'start_date' => fake()->dateTimeBetween('-7 days', 'now'),
             'end_date' => fake()->dateTimeBetween('now', '+7 days'),
             'amount' => fake()->numberBetween(50, 200),

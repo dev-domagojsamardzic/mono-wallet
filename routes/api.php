@@ -21,3 +21,5 @@ Route::prefix('backoffice')->group(function() {
     Route::get('promotion-codes/{id}', [ PromotionController::class, 'show' ]);
     Route::post('promotion-codes', [ PromotionController::class, 'store' ]);
 });
+
+Route::post('assign-promotion', [ PromotionController::class, 'assign' ])->middleware(['auth:sanctum']);

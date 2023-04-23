@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PromotionAssignRequest;
 use App\Http\Requests\PromotionGetRequest;
 use App\Http\Requests\PromotionPostRequest;
 use App\Http\Resources\PromotionResource;
@@ -53,8 +54,13 @@ class PromotionController extends Controller
      */
     public function store(PromotionPostRequest $request)
     {
+        // Create new promotion
+        $newPromotion = $this->promotionRepository->store($request);
+
+        // return result
         return response()->json([
-            'function' => 'store'
+            'success' => 'true',
+            'data' => PromotionResource::make($newPromotion)
         ]);
     }
 
@@ -69,6 +75,14 @@ class PromotionController extends Controller
             'success' => true,
             'data' => PromotionResource::make($promotion)
         ]);
+    }
+
+    /**
+     * Assign the specified promotion.
+     */
+    public function assign(PromotionAssignRequest $request)
+    {
+        //
     }
 
     /**
@@ -94,4 +108,5 @@ class PromotionController extends Controller
     {
         //
     }
+
 }

@@ -3,7 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Promotion;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class PromotionRepository extends ModelRepository
 {
@@ -42,5 +44,22 @@ class PromotionRepository extends ModelRepository
     {
         $promotions = Promotion::find($id);
         return $promotions;
+    }
+
+    /**
+     * Create new Promotion
+     * ------------------------------
+     * @param Illuminate\Http\Request $request
+     * @return App\Models\Promotion
+     *
+     * @return Promotion
+    */
+
+    public function store(Request $request): Promotion
+    {
+        // Set request params as array
+        $input = $request->all();
+        // Create Promotion
+        return Promotion::create($input);
     }
 }
