@@ -22,4 +22,4 @@ Route::prefix('backoffice')->group(function() {
     Route::post('promotion-codes', [ PromotionController::class, 'store' ]);
 });
 
-Route::post('assign-promotion', [ PromotionController::class, 'assign' ]);
+Route::post('assign-promotion', [ PromotionController::class, 'assign' ])->middleware('verify_bearer_token');
