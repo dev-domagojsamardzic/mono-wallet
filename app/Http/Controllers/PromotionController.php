@@ -7,6 +7,7 @@ use App\Http\Requests\PromotionGetRequest;
 use App\Http\Requests\PromotionPostRequest;
 use App\Http\Resources\PromotionResource;
 use App\Repositories\PromotionRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PromotionController extends Controller
@@ -33,12 +34,11 @@ class PromotionController extends Controller
      */
     public function index()
     {
+        // Get all promotions
         $promotions = $this->promotionRepository->getAll();
 
-        return response()->json([
-            'success' => true,
-            'data' => PromotionResource::collection($promotions)
-        ]);
+        // Return response
+        return $this->successResponse(PromotionResource::collection($promotions));
     }
 
     /**
@@ -54,14 +54,11 @@ class PromotionController extends Controller
      */
     public function store(PromotionPostRequest $request)
     {
-        // Create new promotion
+        // Create/store new promotion
         $newPromotion = $this->promotionRepository->store($request);
 
-        // return result
-        return response()->json([
-            'success' => 'true',
-            'data' => PromotionResource::make($newPromotion)
-        ]);
+        // Return response
+        return $this->successResponse(PromotionResource::make($newPromotion));
     }
 
     /**
@@ -69,12 +66,11 @@ class PromotionController extends Controller
      */
     public function show( PromotionGetRequest $request, string $id )
     {
+        // Find a promotion
         $promotion = $this->promotionRepository->find($id);
 
-        return response()->json([
-            'success' => true,
-            'data' => PromotionResource::make($promotion)
-        ]);
+        // Return response
+        return $this->successResponse(PromotionResource::make($promotion));
     }
 
     /**
@@ -83,19 +79,14 @@ class PromotionController extends Controller
     public function assign(PromotionAssignRequest $request)
     {
         try {
+            // Assign promotion to a user
+            $this->promotionRepository->assignToUser($request);
 
-            $success = $this->promotionRepository->assignToUser($request);
-
-            return response()->json([
-                'success' => $success
-            ]);
+            return $this->successResponse(null, 200);
         }
         catch (\Exception $e) {
 
-            return response()->json([
-                'success' => 'false',
-                'message' => $e->getMessage()
-            ]);
+            return $this->errorResponse($e->getMessage(), 422);
         }
 
 

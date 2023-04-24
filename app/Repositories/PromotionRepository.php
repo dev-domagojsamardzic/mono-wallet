@@ -75,12 +75,12 @@ class PromotionRepository extends ModelRepository
      * Assign a promotion to a user
      * ------------------------------
      * @param Illuminate\Http\Request $request
-     * @return bool
+     * @return void
      *
      * @throws Exception
     */
 
-    public function assignToUser(Request $request): bool
+    public function assignToUser(Request $request): void
     {
         // retrieve token
         $token = PersonalAccessToken::findToken($request->bearerToken());
@@ -113,7 +113,5 @@ class PromotionRepository extends ModelRepository
 
         // Increase user's wallet balance
         $user->wallet->increaseBalance($promotion->amount);
-
-        return true;
     }
 }
