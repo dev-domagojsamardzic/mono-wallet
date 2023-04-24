@@ -82,10 +82,12 @@ class PromotionController extends Controller
             // Assign promotion to a user
             $this->promotionRepository->assignToUser($request);
 
+            // Return response
             return $this->successResponse(null, 200);
         }
         catch (\Exception $e) {
 
+            // Return error
             return $this->errorResponse($e->getMessage(), 422);
         }
 
