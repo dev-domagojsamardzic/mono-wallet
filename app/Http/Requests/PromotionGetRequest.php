@@ -52,20 +52,4 @@ class PromotionGetRequest extends FormRequest
             'id' => $this->id
         ];
     }
-
-    /**
-     * Handle a failed validation attempt.
-     *
-     * @param  \Illuminate\Contracts\Validation\Validator  $validator
-     * @return void
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    protected function failedValidation(Validator $validator)
-    {
-        throw new ValidationException($validator, response()->json([
-            'status_code' => 422,
-            'errors' => $validator->errors()
-        ], 422));
-    }
 }
