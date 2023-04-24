@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Wallet;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -22,9 +23,17 @@ class User extends Authenticatable
         'username',
         'firstname',
         'lastname',
-        'email',
-        'token'
+        'email'
     ];
+
+    /* public static function boot(): void
+    {
+        parent::boot();
+
+        static::created(fn (Model $model) =>
+            $model->createToken('api_token')
+        );
+    } */
 
     /**
      * The attributes that should be cast.

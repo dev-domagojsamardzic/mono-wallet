@@ -3,6 +3,7 @@
 use App\Http\Controllers\PromotionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('login', [ AuthController::class, 'login' ]);
+
 Route::prefix('backoffice')->group(function() {
 
     Route::get('promotion-codes', [ PromotionController::class, 'index' ]);
@@ -22,4 +25,4 @@ Route::prefix('backoffice')->group(function() {
     Route::post('promotion-codes', [ PromotionController::class, 'store' ]);
 });
 
-Route::post('assign-promotion', [ PromotionController::class, 'assign' ]);
+Route::post('assign-promotion', [ PromotionController::class, 'assign' ])->middleware('auth:sanctum');
