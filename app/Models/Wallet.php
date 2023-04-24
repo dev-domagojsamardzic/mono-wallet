@@ -21,4 +21,16 @@ class Wallet extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+
+    /**
+     * Increase wallet balance
+     *
+     * @param float $amount
+     * @return void
+     */
+    public function increaseBalance(float $amount): void
+    {
+        $this->increment('balance', $amount);
+    }
 }

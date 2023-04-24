@@ -82,7 +82,23 @@ class PromotionController extends Controller
      */
     public function assign(PromotionAssignRequest $request)
     {
-        //
+        try {
+
+            $success = $this->promotionRepository->assignToUser($request);
+
+            return response()->json([
+                'success' => $success
+            ]);
+        }
+        catch (\Exception $e) {
+
+            return response()->json([
+                'success' => 'false',
+                'message' => $e->getMessage()
+            ]);
+        }
+
+
     }
 
     /**
