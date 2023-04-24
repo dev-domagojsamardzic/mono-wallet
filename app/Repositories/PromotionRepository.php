@@ -9,6 +9,11 @@ use App\Models\Promotion;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class PromotionRepository extends ModelRepository
 {
@@ -77,12 +82,15 @@ class PromotionRepository extends ModelRepository
 
     public function assignToUser(Request $request): bool
     {
-        // Retrieve a user
-        $user = User::where('api_token', $request->bearerToken())->first();
+        // retrieve token
+        $token = PersonalAccessToken::findToken($request->bearerToken());
+        // Retrieve user
+        $user = $token->tokenable;
+
         // Retrieve a promotion
         $promotion = Promotion::where('code', $request->code)->first();
 
-        // Check promotion validity
+        // Check if promotion is still valid
         if( $promotion->start_date->gt( now() ) || $promotion->end_date->lt( now() ))
         {
             throw new PromotionNotValidException;
@@ -95,7 +103,8 @@ class PromotionRepository extends ModelRepository
         }
 
         // Check if the user has already used the promotion
-        if ($promotion->users()->where('user_id', $user->id)->exists()) {
+        if ($promotion->users()->where('user_id', $user->id)->exists())
+        {
             throw new PromotionAlreadyAssignedException;
         }
 

@@ -8,11 +8,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Wallet;
-use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -25,15 +24,6 @@ class User extends Authenticatable
         'lastname',
         'email'
     ];
-
-    /* public static function boot(): void
-    {
-        parent::boot();
-
-        static::created(fn (Model $model) =>
-            $model->createToken('api_token')
-        );
-    } */
 
     /**
      * The attributes that should be cast.

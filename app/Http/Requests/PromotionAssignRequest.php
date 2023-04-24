@@ -3,8 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Validation\ValidationException;
 
 class PromotionAssignRequest extends FormRequest
 {
@@ -13,7 +11,6 @@ class PromotionAssignRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // You can add the bearer middleware here too, but the route is already protected with the middleware
         return true;
     }
 
@@ -40,21 +37,5 @@ class PromotionAssignRequest extends FormRequest
             'code.required' => 'The code parameter is required.',
             'code.exists' => 'Invalid promotion code'
         ];
-    }
-
-    /**
-     * Handle a failed validation attempt.
-     *
-     * @param  \Illuminate\Contracts\Validation\Validator  $validator
-     * @return void
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    protected function failedValidation(Validator $validator)
-    {
-        throw new ValidationException($validator, response()->json([
-            'status_code' => 422,
-            'errors' => $validator->errors()
-        ], 422));
     }
 }
