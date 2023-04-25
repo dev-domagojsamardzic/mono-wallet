@@ -51,4 +51,20 @@ class PromotionPostRequest extends FormRequest
             'quota.gt' => 'The quota parameter must be an integer value greater than 0.'
         ];
     }
+
+    /**
+     * Handle a failed validation attempt.
+     *
+     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        throw new ValidationException($validator, response()->json([
+            'message' => $validator->errors()->first(),
+            'errors' => $validator->errors()
+        ], 422));
+    }
 }

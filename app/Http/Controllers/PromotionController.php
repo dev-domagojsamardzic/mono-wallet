@@ -64,7 +64,7 @@ class PromotionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show( PromotionGetRequest $request, string $id )
+    public function show(PromotionGetRequest $request, string $id)
     {
         // Find a promotion
         $promotion = $this->promotionRepository->find($id);

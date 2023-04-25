@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
 
 class UserLoginRequest extends FormRequest
 {
@@ -37,5 +39,21 @@ class UserLoginRequest extends FormRequest
             'username.required' => 'The username parameter is required.',
             'username.exists' => 'Username is invalid.',
         ];
+    }
+
+    /**
+     * Handle a failed validation attempt.
+     *
+     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        throw new ValidationException($validator, response()->json([
+            'message' => $validator->errors()->first(),
+            'errors' => $validator->errors()
+        ], 422));
     }
 }

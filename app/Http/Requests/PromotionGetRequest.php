@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class PromotionGetRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class PromotionGetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'exists:promotions,id'
+            'id' => [ 'exists:promotions,id' ]
         ];
     }
 
@@ -51,5 +52,21 @@ class PromotionGetRequest extends FormRequest
         return [
             'id' => $this->id
         ];
+    }
+
+    /**
+     * Handle a failed validation attempt.
+     *
+     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        throw new ValidationException($validator, response()->json([
+            'message' => $validator->errors()->first(),
+            'errors' => $validator->errors()
+        ], 422));
     }
 }
