@@ -11,7 +11,9 @@ class PromotionAssignRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        // Although the authorization is done by using the 'auth:sanctum' middleware
+        // Here too, I can authorize a user by doing something like this:
+        return auth('sanctum')->user() !== false;
     }
 
     /**
