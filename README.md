@@ -34,6 +34,8 @@ Application doesn't have GUI. It has 4 endpoints + fake login endpoint added as 
     }
     ```
 
+**For the last 2 requests, use: Accept: application/json in request headers.**
+
 4.  **POST** /api/assign-promotion (sanctum protected, **Reqests $header['Authorization']['Bearer']**)
 
     Assign user to a promotion.
