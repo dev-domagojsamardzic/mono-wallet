@@ -60,7 +60,7 @@ class PromotionController extends Controller
     public function show(PromotionGetRequest $request, string $id)
     {
         // Find a promotion
-        $promotion = $this->promotionRepository->find($id);
+        $promotion = $this->promotionRepository->findWith($id, ['users','users.wallet']);
 
         // Return response
         return $this->successResponse(PromotionResource::make($promotion));

@@ -39,14 +39,15 @@ class PromotionRepository extends ModelRepository
     /**
      * Get Model (single)
      * ------------------------------
+     * @param array $relationships
      * @param string $id
      *
      * @return Promotion
     */
 
-    public function find(string $id): Promotion
+    public function findWith(string $id, array $relationships): Promotion
     {
-        $promotions = Promotion::find($id);
+        $promotions = Promotion::with($relationships)->find($id);
         return $promotions;
     }
 
