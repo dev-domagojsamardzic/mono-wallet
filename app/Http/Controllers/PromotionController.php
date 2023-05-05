@@ -6,10 +6,7 @@ use App\Http\Requests\PromotionAssignRequest;
 use App\Http\Requests\PromotionGetRequest;
 use App\Http\Requests\PromotionPostRequest;
 use App\Http\Resources\PromotionResource;
-use App\Models\Promotion;
 use App\Repositories\PromotionRepository;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class PromotionController extends Controller
 {
@@ -59,7 +56,7 @@ class PromotionController extends Controller
      */
     public function show(PromotionGetRequest $request, string $id)
     {
-        // Find a promotion
+        // Find a promotion, include relationships
         $promotion = $this->promotionRepository->findWith($id, ['users','users.wallet']);
 
         // Return response
@@ -83,7 +80,5 @@ class PromotionController extends Controller
             // Return error
             return $this->errorResponse($e->getMessage(), 422);
         }
-
-
     }
 }
