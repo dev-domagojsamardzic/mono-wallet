@@ -6,6 +6,7 @@ use App\Http\Requests\PromotionAssignRequest;
 use App\Http\Requests\PromotionGetRequest;
 use App\Http\Requests\PromotionPostRequest;
 use App\Http\Resources\PromotionResource;
+use App\Models\Promotion;
 use App\Repositories\PromotionRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -35,8 +36,8 @@ class PromotionController extends Controller
     public function index()
     {
         // Get all promotions
-        $promotions = $this->promotionRepository->getAll();
-
+        $promotions = $this->promotionRepository->allWith(['users','users.wallet']);
+        
         // Return response
         return $this->successResponse(PromotionResource::collection($promotions));
     }

@@ -24,14 +24,15 @@ class PromotionRepository extends ModelRepository
     }
 
     /**
-     * Get Model collection (all)
+     * Get Model collection (all) with relationships
      * ------------------------------
+     * @param array $relationships
      * @return Collection
     */
 
-    public function getAll(): Collection
+    public function allWith(array $relationships): Collection
     {
-        $promotions = Promotion::all();
+        $promotions = Promotion::with($relationships)->get();
         return $promotions;
     }
 
